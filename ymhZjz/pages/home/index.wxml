@@ -1,0 +1,72 @@
+<view class="home-page">
+	<view class="swiper-component">
+		<swiper class="swiper-content" indicator-dots="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for-items="{{swiperDatas}}" wx:key="index">
+    <swiper-item>
+        <image src="{{item.imgurl}}" class="slide-image" />
+    </swiper-item>
+</block>
+		</swiper>
+	</view>
+	<view class="content">
+		<view class="top">
+			<view class="top-block">
+				<view class="top-left" bindtap="examineTo">
+					<image style="width: 116rpx; height: 109rpx; margin-bottom: 5px; display: block; box-sizing: border-box" src="../../images/home/methods.png"></image>
+					<view>中考报名</view>
+				</view>
+				<view class="top-line"></view>
+				<view class="top-right" bindtap="navigateTo" data-url="/pages/sizeList/index">
+					<image style="width: 138rpx; height: 125rpx; margin-bottom: 5px; display: block; box-sizing: border-box" src="../../images/home/build.png"></image>
+					<view>快速制作</view>
+				</view>
+			</view>
+		</view>
+		<view class="bottom">
+			<view class="bottom-block">
+				<view class="bottom-cell" bindtap="navigateTo" data-url="/pages/sizeList/index">
+					<image style="width: 30px; height: 30px; margin-right: 5px" src="../../images/home/hot.png"></image>
+					<view>
+						<view>热门推荐</view>
+						<view>近期高频尺寸</view>
+					</view>
+
+				</view>
+				<view class="bottom-line"></view>
+				<view class="bottom-cell" bindtap="loginJump" data-url="/pages/custom/index">
+					<image style="width: 30px; height: 30px; margin-right: 5px" src="../../images/home/custom.png"></image>
+					<view>
+						<view>自定义</view>
+						<view>多种尺寸制作</view>
+					</view>
+
+				</view>
+				<view class="bottom-line"></view>
+				<view class="bottom-cell" bindtap="navigateTo" data-url="/pages/searchs/index">
+					<image style="width: 30px; height: 30px; margin-right: 5px" src="../../images/home/search.png"></image>
+					<view>
+						<view>搜索</view>
+						<view>关键字查找</view>
+					</view>
+				</view>
+			</view>
+		</view>
+
+	</view>
+	<view class="my-photo" bindtap="loginJump" data-url="/pages/works/index">
+		<view>
+			<image style="width: 25px; height: 20px; margin: 0 10px 0 15px " src="../../images/home/my-photo.png"></image>
+			<view>我的作品</view>
+		</view>
+		<view style="margin-right: 15px; font-size: 25rpx; color: #ccc ">立即查看
+      <van-icon name="flower-o" />
+		</view>
+	</view>
+
+	<view class="login-prompt" wx:if="{{!authorized}}" bindtap="login">
+    <text style="position: relative; left: 8rpx; top: 3rpx">你不登录，我就不走啦 (｡•́︿•̀｡)</text>
+    <button class="login-button" style="position: relative; left: -29rpx; top: 1rpx">立即登录</button>
+</view>
+
+
+</view>

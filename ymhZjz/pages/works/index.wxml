@@ -1,0 +1,30 @@
+<view class="works">
+  <van-notify id="van-notify" />
+  <van-dialog id="van-dialog" />
+  
+  <view class="photo-grid">
+    <view class="photo-card" wx:for="{{workList}}" wx:for-index="id" wx:key="id">
+      <view class="photo-preview">
+        <image src="{{item.nimg}}" data-url="{{item.nimg}}" bindtap="preView"></image>
+      </view>
+      <view class="photo-info">
+        <view class="photo-name">{{item.name}}</view>
+        <view class="photo-size">{{item.size}} px</view>
+        <view class="photo-time">{{item.createTime}}</view>
+      </view>
+      <view class="photo-actions">
+        <van-button type="primary" size="small" data-url="{{item.nimg}}" bindtap="savePicUrlAndImg">
+          下载
+        </van-button>
+        <van-button type="danger" size="small" data-id="{{item.id}}" bindtap="remove">
+          删除
+        </van-button>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{!workList.length}}">
+    <image src="../searchs/images/none.png" style="position: relative; left: -1rpx; top: 297rpx"></image>
+    <text style="position: relative; left: 0rpx; top: 215rpx">暂无作品</text>
+  </view>
+</view>

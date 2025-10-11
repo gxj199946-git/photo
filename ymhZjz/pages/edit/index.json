@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "default",
+  "usingComponents": {
+    "color-picker": "color-picker/color-picker",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-notice-bar": "@vant/weapp/notice-bar/index"
+  }
+}

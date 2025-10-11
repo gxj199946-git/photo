@@ -1,0 +1,23 @@
+<view class="search">
+  <view class="s-input">
+    <van-search value="{{ value || '' }}" bind:change="onChange" placeholder="请输入关键词,如：一寸" shape="round" />
+  </view>
+<scroll-view class="container" scroll-y bindscrolltolower="moredata" scroll-top="{{scrollTop}}" enhanced show-scrollbar="{{false}}">
+    <view class="grid-container">
+      <view class="grid-item" wx:for="{{photoSizeList}}" wx:key="id" data-index="{{index}}" bindtap="goNextPage">
+        <image class="grid-image" src="../sizeList/sizes/{{item.icon}}.png" mode="aspectFit" lazy-load></image>
+        <view class="grid-content">
+          <view class="title">{{ item.name }}</view>
+          <view class="description">{{item.widthPx}}*{{item.heightPx}}</view>
+          <view class="description">{{item.widthMm}}*{{item.heightMm}} | {{item.dpi}}dpi</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="empty-state" wx:if="{{!loading && !photoSizeList.length}}">
+    <image src="./images/none.png" mode="aspectFit" style="position: relative; left: 56rpx; top: 216rpx"></image>
+  </view>
+  <view class="scroll-to-top" wx:if="{{showBackTop}}" bindtap="scrollToTop" hover-class="scroll-to-top-hover">
+    <van-icon name="arrow-up" size="24px" color="#fff"/>
+  </view>
+</view>

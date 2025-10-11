@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "navigationStyle": "default",
+  "usingComponents": {
+    "van-dialog": "@vant/weapp/dialog/index"
+  }
+}
