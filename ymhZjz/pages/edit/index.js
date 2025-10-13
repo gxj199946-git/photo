@@ -149,40 +149,40 @@ Page({
       });
       return;
     }
+    this.saveNormalPhoto(); //直接下载
+    // // 普通下载没开启广告
+    // if (e.currentTarget.dataset.type == 1) {
+    //   this.saveNormalPhoto();
+    //   return;
+    // }
+    // // 高清下载没开启广告
+    // if (this.data.downloadHd == 0 && e.currentTarget.dataset.type == 2) {
+    //   this.saveHDPhoto();
+    //   return;
+    // }
 
-    // 普通下载没开启广告
-    if (e.currentTarget.dataset.type == 1) {
-      this.saveNormalPhoto();
-      return;
-    }
-    // 高清下载没开启广告
-    if (this.data.downloadHd == 0 && e.currentTarget.dataset.type == 2) {
-      this.saveHDPhoto();
-      return;
-    }
-
-    // 剩下都是开启广告了，弹出询问
-    Dialog.confirm({
-        title: '提示',
-        message: '观看一次广告，才能下载哦，您每观看完一次广告都是对我们最大的帮助',
-      })
-      .then(() => {
-        const rewardedVideoAd = this.data.rewardedVideoAd;
-        if (rewardedVideoAd) {
-          // 尝试播放广告
-          rewardedVideoAd.show().catch(() => {
-            // 如果广告未加载成功，则重新加载并播放广告
-            this.loadRewardedVideoAd(e.currentTarget.dataset.type);
-          });
-        } else {
-          console.error('广告实例不存在');
-          // 防止广告权限被封或无广告权限导致用户无法下载
-          this.saveHDPhoto();
-        }
-      })
-      .catch(() => {
-        // 用户取消观看广告
-      });
+    // // 剩下都是开启广告了，弹出询问
+    // Dialog.confirm({
+    //     title: '提示',
+    //     message: '观看一次广告，才能下载哦，您每观看完一次广告都是对我们最大的帮助',
+    //   })
+    //   .then(() => {
+    //     const rewardedVideoAd = this.data.rewardedVideoAd;
+    //     if (rewardedVideoAd) {
+    //       // 尝试播放广告
+    //       rewardedVideoAd.show().catch(() => {
+    //         // 如果广告未加载成功，则重新加载并播放广告
+    //         this.loadRewardedVideoAd(e.currentTarget.dataset.type);
+    //       });
+    //     } else {
+    //       console.error('广告实例不存在');
+    //       // 防止广告权限被封或无广告权限导致用户无法下载
+    //       this.saveHDPhoto();
+    //     }
+    //   })
+    //   .catch(() => {
+    //     // 用户取消观看广告
+    //   });
   },
 
   //高级参数
@@ -214,6 +214,7 @@ Page({
     wx.showLoading({
       title: '下载中...',
     })
+    console.log(wx.getStorageSync("token"));
     wx.request({
       url: app.url + 'api/updateUserPhonto',
       data: {
@@ -291,6 +292,9 @@ Page({
     const that = this;
     wx.downloadFile({
       url: this.data.picUrl,
+      header: {
+        "token": wx.getStorageSync("token")
+      },
       success: function (res) {
         wx.hideLoading();
         // 下载成功后将图片保存到本地

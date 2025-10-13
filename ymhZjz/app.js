@@ -1,4 +1,4 @@
 App({
-  url:"http://localhost:8010/",
+  url:"http://47.108.148.221:8010/",
   appName:"证件照伴侣"
 })
