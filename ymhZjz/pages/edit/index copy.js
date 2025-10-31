@@ -149,7 +149,7 @@ Page({
       });
       return;
     }
-    // this.saveNormalPhoto(); //直接下载
+    this.saveNormalPhoto(); //直接下载
     // 普通下载没开启广告
     if (e.currentTarget.dataset.type == 1) {
       this.saveNormalPhoto();
@@ -242,10 +242,10 @@ Page({
     });
   },
 
-   // 保存高清照
-   saveHDPhoto() {
+  // 保存高清照
+  saveHDPhoto() {
     wx.showLoading({
-      title: '高清照制作中...',
+      title: '制作中...',
     });
     wx.request({
       url: app.url + 'api/createIdHdPhoto',
@@ -260,28 +260,29 @@ Page({
       },
       method: "POST",
       success: (res) => {
+        wx.hideLoading();
         if (res.data.code == 200) {
           this.updateColor(this.data.color, res.data.data.kimg, 2);
-          // 增加一个短暂的延时，以确保在调用 saveNormalPhoto 之前，
-          // setData 操作（在 updateColor 内部）有足够的时间完成。
-          // 这是为了替代原先需要用户手动确认的弹窗。
-          setTimeout(() => {
+           //之前使用wx.nextTick(()）发现有坑，高清照base64会被压缩，导致高清照一直没生效，最后想到的最佳解决办法就是使用弹窗 
+          Dialog.confirm({
+            title: '确认下载？',
+            message: '高清照已制作完成，是否立即下载？',
+          })
+          .then(() => {
             this.saveNormalPhoto();
-          }, 800);
-        } else {
-          wx.hideLoading();
+          })
+          .catch(() => {
+            wx.showToast({
+              title: '已取消下载',
+              icon: 'none'
+            });
+          });
+        } else if (res.data.code == 404) {
           wx.showToast({
-            title: res.data.data || '高清照制作失败',
+            title: res.data.data,
             icon: 'none'
           });
         }
-      },
-      fail: (err) => {
-        wx.hideLoading();
-        wx.showToast({
-          title: '网络请求失败，请重试',
-          icon: 'none'
-        });
       }
     });
   },

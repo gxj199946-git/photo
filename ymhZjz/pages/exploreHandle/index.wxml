@@ -34,7 +34,11 @@
 
   <!-- 选择图片按钮 -->
   <view class="effect-button">
-    <view class="album-button" bindtap="{{type == '4' || type == '6' ? 'showBottomModal' : 'chooseImage'}}">选择图片</view>
+  <!-- 因为接口有问题，所以隐藏上传图片功能 -->
+  <view wx:if="{{type == 6}}" class="album-button" >功能调试中~</view>
+
+    <view wx:if="{{type == 4}}" class="album-button" bindtap="{{type == '4' || type == '6' ? 'showBottomModal' : 'chooseImage'}}">选择图片</view>
+    <!-- <view class="album-button" bindtap="{{type == '4' || type == '6' ? 'showBottomModal' : 'chooseImage'}}">选择图片</view> -->
   </view>
 
   <!-- 屏蔽层和底部弹出框 -->
